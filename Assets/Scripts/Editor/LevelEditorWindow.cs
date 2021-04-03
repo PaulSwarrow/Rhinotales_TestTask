@@ -16,11 +16,11 @@ public class LevelEditorWindow : EditorWindow
     private bool showObstacleTiles;
     private int gridSize = 20;
 
-    private Grid grid;
+    private GameLevelActor level;
 
     private void OnEnable()
     {
-        grid = FindObjectOfType<Grid>();
+        level = FindObjectOfType<GameLevelActor>();
         SceneView.onSceneGUIDelegate += OnSceneGUI;
     }
 
@@ -37,13 +37,18 @@ public class LevelEditorWindow : EditorWindow
         if (GUILayout.Button("Save"))
         {
         }
+
+        var filter = CellType.Empty;
+        if (showObstacleTiles) filter |= CellType.Obstacle;
+        if (showWalkableTiles) filter |= CellType.Walkable;
+        level.SetFilter(filter);
     }
 
     void OnSceneGUI(SceneView sceneView)
     {
         if (showGrid)
         {
-            GridDrawer.Draw(grid, gridSize);
+            GridDrawer.Draw(level.Grid, gridSize);
         }
     }
 }

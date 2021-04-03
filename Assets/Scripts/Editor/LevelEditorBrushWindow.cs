@@ -1,5 +1,9 @@
-﻿using Editor.Utils;
+﻿using System;
+using Editor.Utils;
 using UnityEditor;
+using UnityEngine;
+using UnityEngine.Tilemaps;
+using UnityEngine.XR;
 
 namespace Editor
 {
@@ -20,7 +24,7 @@ namespace Editor
         
         }
         
-        private static (string name, BrushMode mode)[] BrushOptions = {
+        private static readonly (string name, BrushMode mode)[] BrushOptions = {
             ("Draw walkable", BrushMode.DrawWalkable),
             ("Draw obstacles", BrushMode.DrawObstacles),
             ("Erase", BrushMode.Erase)
@@ -28,11 +32,24 @@ namespace Editor
     
         private bool active;
         private int brushMode;
-        void OnGUI () {
-            
-            active = EditorGUILayout.Toggle("Brush active", active);
-            brushMode = EditorTools.DrawSwitcher(brushMode, BrushOptions);
+        private Tilemap tilemap;
+
+        private void OnEnable()
+        {
+            tilemap = FindObjectOfType<Tilemap>();
 
         }
+
+        private void OnDisable()
+        {
+            
+        }
+
+        private void OnGUI () {
+            
+            active = EditorGUILayout.Toggle("Brush active", active);
+            brushMode = EditorGuiExtension.DrawSwitcher(brushMode, BrushOptions);
+        }
+        
     }
 }
