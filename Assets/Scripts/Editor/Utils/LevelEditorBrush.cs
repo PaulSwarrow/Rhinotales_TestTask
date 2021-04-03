@@ -64,7 +64,6 @@ namespace Editor.Utils
                 GUIUtility.hotControl = 0;
             }
 
-            Selection.objects = null;
         }
 
         private Vector3 GetPositionOnFloor(SceneView sceneView)
