@@ -36,6 +36,8 @@ public class LevelEditorWindow : EditorWindow
         showObstacleTiles = EditorGUILayout.Toggle("Show obstacle tiles", showObstacleTiles);
         if (GUILayout.Button("Save"))
         {
+            var data = level.Read();
+            
         }
 
         var filter = CellType.Empty;

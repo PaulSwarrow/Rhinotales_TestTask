@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using DefaultNamespace;
-using UnityEngine.Tilemaps;
+using UnityEngine.Model;
 
 namespace UnityEngine
 {
@@ -15,8 +14,22 @@ namespace UnityEngine
         private Grid grid;
 
         public Grid Grid => grid ? grid : grid = GetComponent<Grid>();
-    
 
+
+        public IEnumerable<CellModel> Read()
+        {
+            var list = new List<CellModel>();
+            foreach (var layer in layers)
+            {
+                layer.ForEachCell(position => list.Add(new CellModel
+                {
+                    Position = position,
+                    Type = layer.Type
+                }));
+            }
+
+            return list;
+        }
 
         private void SetCell(Vector3Int position, CellType type)
         {
@@ -28,7 +41,7 @@ namespace UnityEngine
 
         public void SetFilter(CellType filter)
         {
-            if(this.filter == filter) return;
+            if (this.filter == filter) return;
             this.filter = filter;
             foreach (var levelLayer in layers)
             {

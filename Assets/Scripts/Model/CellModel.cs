@@ -3,6 +3,6 @@
     public class CellModel
     {
         public Vector3Int Position;
-        public bool Walkable;
+        public CellType Type;
     }
 }

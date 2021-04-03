@@ -22,21 +22,16 @@ namespace DefaultNamespace
         {
             map.SetTile(position, value ? prefab : null);
         }
-        
-        
 
-        private List<Vector3Int> GetCells(Tilemap tilemap)
+        public void ForEachCell(Action<Vector3Int> handler)
         {
-            var list = new List<Vector3Int>();
-            foreach (var pos in tilemap.cellBounds.allPositionsWithin)
+            foreach (var pos in map.cellBounds.allPositionsWithin)
             {   
-                if (tilemap.HasTile(pos))
+                if (map.HasTile(pos))
                 {
-                    list.Add(pos);
+                    handler(pos);
                 }
             }
-
-            return list;
         }
     }
 }
