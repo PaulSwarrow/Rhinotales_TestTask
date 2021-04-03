@@ -1,6 +1,7 @@
 ﻿using System;
 using Editor.Utils;
 using UnityEditor;
+using UnityEditor.EditorTools;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.XR;
@@ -32,11 +33,13 @@ namespace Editor
     
         private bool active;
         private int brushMode;
-        private Tilemap tilemap;
+        private GameLevelActor level;
 
         private void OnEnable()
         {
-            tilemap = FindObjectOfType<Tilemap>();
+            level = FindObjectOfType<GameLevelActor>();
+            EditorTools.SetActiveTool<LevelEditorBrush>();
+            LevelEditorBrush.Target = level;
 
         }
 

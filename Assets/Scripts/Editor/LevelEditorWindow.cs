@@ -59,6 +59,7 @@ namespace Editor
             if (showGrid)
             {
                 GridDrawer.Draw(level.Grid, gridSize);
+                sceneView.Repaint();
             }
         }
     }

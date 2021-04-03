@@ -1,9 +1,9 @@
-﻿
-using System;
-using UnityEngine;
+﻿using System;
+using System.Diagnostics;
 using UnityEditor;
 using UnityEditor.EditorTools;
-using UnityEngine.XR;
+using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 namespace Editor.Utils
 {
@@ -11,13 +11,19 @@ namespace Editor.Utils
     [EditorTool("Level Editor Brush")]
     class LevelEditorBrush : EditorTool
     {
+        public static GameLevelActor Target;
+
 
         public override void OnToolGUI(EditorWindow window)
         {
             if (window is SceneView sceneView)
             {
                 var point = GetPositionOnFloor(sceneView);
-                Handles.DrawWireCube(point, Vector3.one);
+                var cell = Target.Grid.WorldToCell(point);
+
+                GridDrawer.DrawArea(Target.Grid, 3, cell, Color.white);
+                
+
                 sceneView.Repaint();
             }
         }
