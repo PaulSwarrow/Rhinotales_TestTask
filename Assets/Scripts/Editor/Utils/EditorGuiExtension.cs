@@ -2,7 +2,7 @@
 
 namespace Editor.Utils
 {
-    public static class EditorTools
+    public static class EditorGuiExtension
     {
         public static int DrawSwitcher<T>(int value, params (string name, T value)[] options)
         {
