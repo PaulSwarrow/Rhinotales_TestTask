@@ -15,8 +15,7 @@ namespace UnityEngine
 
         public Grid Grid => grid ? grid : grid = GetComponent<Grid>();
 
-
-        public IEnumerable<CellModel> Read()
+        public List<CellModel> Read()
         {
             var list = new List<CellModel>();
             foreach (var layer in layers)
@@ -29,6 +28,24 @@ namespace UnityEngine
             }
 
             return list;
+        }
+
+        public void Write(IEnumerable<CellModel> data)
+        {
+            Clear();
+            foreach (var cellModel in data)
+            {
+                SetCell(cellModel.Position, cellModel.Type);
+            }
+        }
+
+        private void Clear()
+        {
+            foreach (var layer in layers)
+            {
+                layer.Clear();
+            }
+            
         }
 
         private void SetCell(Vector3Int position, CellType type)

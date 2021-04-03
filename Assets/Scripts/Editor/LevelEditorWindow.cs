@@ -1,4 +1,6 @@
-﻿using Editor.Utils;
+﻿using System.Linq;
+using DefaultNamespace;
+using Editor.Utils;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -36,8 +38,13 @@ public class LevelEditorWindow : EditorWindow
         showObstacleTiles = EditorGUILayout.Toggle("Show obstacle tiles", showObstacleTiles);
         if (GUILayout.Button("Save"))
         {
-            var data = level.Read();
-            
+            var config = CreateInstance<GameLevelConfig>();
+            config.data = level.Read();
+            AssetDatabaseApi.SaveAsset(config);
+        }
+        if (GUILayout.Button("Load") && AssetDatabaseApi.LoadAsset<GameLevelConfig>(out var loadedConfig))
+        {
+            level.Write(loadedConfig.data);
         }
 
         var filter = CellType.Empty;

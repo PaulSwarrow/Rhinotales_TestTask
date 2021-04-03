@@ -33,5 +33,10 @@ namespace DefaultNamespace
                 }
             }
         }
+
+        public void Clear()
+        {
+            map.ClearAllTiles();
+        }
     }
 }
