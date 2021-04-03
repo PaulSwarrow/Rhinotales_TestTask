@@ -27,6 +27,7 @@ namespace Editor
     
         private bool active;
         private int brushMode;
+        private int brushSize;
         private GameLevelActor level;
 
         private void OnEnable()
@@ -46,7 +47,11 @@ namespace Editor
             
             active = EditorGUILayout.Toggle("Brush active", active);
             brushMode = EditorGuiExtension.DrawSwitcher(brushMode, BrushOptions);
+            brushSize = EditorGUILayout.IntSlider("Brush size", brushSize, 1, 5);
+            
+            
             LevelEditorBrush.Mode = BrushOptions[brushMode].mode;
+            LevelEditorBrush.Size = brushSize;
         }
         
     }

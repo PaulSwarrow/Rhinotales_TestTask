@@ -15,6 +15,8 @@ namespace Editor.Utils
     {
         public static GameLevelActor Target;
         public static CellType Mode;
+        public static int Size;
+        
         private int controlID;
 
         private void OnEnable()
@@ -29,9 +31,8 @@ namespace Editor.Utils
             {
                 var point = GetPositionOnFloor(sceneView);
                 var cell = Target.Grid.WorldToCell(point);
-                var size = 3;
-                var min = new Vector3Int(cell.x - size / 2, cell.y - size / 2,0);
-                var max = new Vector3Int(cell.x + size / 2 + 1, cell.y + size / 2 + 1,0);
+                var min = new Vector3Int(cell.x - Size / 2, cell.y - Size / 2,0);
+                var max = new Vector3Int(cell.x + Size / 2 + 1, cell.y + Size / 2 + 1,0);
                 GridDrawer.DrawArea(Target.Grid, min, max, cell, Color.white);
                 var currentEvent = Event.current;
                 if (currentEvent.type == EventType.MouseDown)
@@ -52,10 +53,6 @@ namespace Editor.Utils
                     
                 }
                 
-                
-                
-                
-
                 sceneView.Repaint();
             }
             else
