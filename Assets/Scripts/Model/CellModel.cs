@@ -1,6 +1,8 @@
 ﻿using System;
+using Data;
+using UnityEngine;
 
-namespace UnityEngine.Model
+namespace Model
 {
     [Serializable]
     public class CellModel

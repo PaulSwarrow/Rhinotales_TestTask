@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
+using Model;
 using UnityEngine;
-using UnityEngine.Model;
 
-namespace DefaultNamespace
+namespace Configs
 {
     public class GameLevelConfig : ScriptableObject
     {
