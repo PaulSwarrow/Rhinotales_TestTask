@@ -44,7 +44,6 @@ public class GameLevelActor : MonoBehaviour
         {
             layer.Clear();
         }
-            
     }
 
     public void SetCell(Vector3Int position, CellType type)
@@ -65,7 +64,6 @@ public class GameLevelActor : MonoBehaviour
                 SetCell(pos1, mode);
             }
         }
-
     }
 
     public void SetFilter(CellType filter)

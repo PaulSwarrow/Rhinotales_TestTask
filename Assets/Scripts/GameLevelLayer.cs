@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Data;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -25,7 +24,7 @@ public class GameLevelLayer : MonoBehaviour
     public void ForEachCell(Action<Vector3Int> handler)
     {
         foreach (var pos in map.cellBounds.allPositionsWithin)
-        {   
+        {
             if (map.HasTile(pos))
             {
                 handler(pos);

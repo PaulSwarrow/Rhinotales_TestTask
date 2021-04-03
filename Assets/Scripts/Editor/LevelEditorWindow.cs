@@ -43,6 +43,7 @@ namespace Editor
                 config.data = level.Read();
                 AssetDatabaseApi.SaveAsset(config);
             }
+
             if (GUILayout.Button("Load") && AssetDatabaseApi.LoadAsset<GameLevelConfig>(out var loadedConfig))
             {
                 level.Write(loadedConfig.data);

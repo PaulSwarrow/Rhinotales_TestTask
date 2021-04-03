@@ -16,6 +16,7 @@ namespace Editor.Utils
                     value = i;
                 }
             }
+
             GUI.enabled = true;
             return value;
         }

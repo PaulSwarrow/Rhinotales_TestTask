@@ -1,11 +1,7 @@
-﻿using System;
-using System.Diagnostics;
-using Data;
+﻿using Data;
 using UnityEditor;
 using UnityEditor.EditorTools;
-using UnityEditor.Tilemaps;
 using UnityEngine;
-using Debug = UnityEngine.Debug;
 
 namespace Editor.Utils
 {
@@ -16,7 +12,7 @@ namespace Editor.Utils
         public static GameLevelActor Target;
         public static CellType Mode;
         public static int Size;
-        
+
         private int controlID;
 
         private void OnEnable()
@@ -26,41 +22,36 @@ namespace Editor.Utils
 
         public override void OnToolGUI(EditorWindow window)
         {
-            
             if (window is SceneView sceneView)
             {
                 var point = GetPositionOnFloor(sceneView);
                 var cell = Target.Grid.WorldToCell(point);
-                var min = new Vector3Int(cell.x - Size / 2, cell.y - Size / 2,0);
-                var max = new Vector3Int(cell.x + Size / 2 + 1, cell.y + Size / 2 + 1,0);
+                var min = new Vector3Int(cell.x - Size / 2, cell.y - Size / 2, 0);
+                var max = new Vector3Int(cell.x + Size / 2 + 1, cell.y + Size / 2 + 1, 0);
                 GridDrawer.DrawArea(Target.Grid, min, max, cell, Color.white);
                 var currentEvent = Event.current;
                 if (currentEvent.type == EventType.MouseDown)
                 {
                     GUIUtility.hotControl = controlID;
                     Target.SetArea(min, max, Mode);
-
                 }
 
                 if (currentEvent.type == EventType.MouseDrag)
                 {
                     Target.SetArea(min, max, Mode);
                 }
-                
+
                 if (currentEvent.type == EventType.MouseUp)
                 {
                     GUIUtility.hotControl = 0;
-                    
                 }
-                
+
                 sceneView.Repaint();
             }
             else
             {
-                
                 GUIUtility.hotControl = 0;
             }
-
         }
 
         private Vector3 GetPositionOnFloor(SceneView sceneView)

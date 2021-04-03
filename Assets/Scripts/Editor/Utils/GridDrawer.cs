@@ -40,7 +40,7 @@ namespace Editor.Utils
             }
         }
 
-        public static void DrawArea(Grid grid, Vector3Int min, Vector3Int max , Vector3Int point, Color color)
+        public static void DrawArea(Grid grid, Vector3Int min, Vector3Int max, Vector3Int point, Color color)
         {
             Handles.matrix = grid.transform.localToWorldMatrix;
             Handles.color = color;
