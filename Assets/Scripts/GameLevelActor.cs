@@ -47,12 +47,25 @@ public class GameLevelActor : MonoBehaviour
             
     }
 
-    private void SetCell(Vector3Int position, CellType type)
+    public void SetCell(Vector3Int position, CellType type)
     {
         foreach (var layer in layers)
         {
             layer.SetValue(position, layer.Type == type);
         }
+    }
+
+    public void SetArea(Vector3Int min, Vector3Int max, CellType mode)
+    {
+        for (var x = min.x; x < max.x; x++)
+        {
+            for (var y = min.y; y < max.y; y++)
+            {
+                var pos1 = new Vector3Int(x, y, 0);
+                SetCell(pos1, mode);
+            }
+        }
+
     }
 
     public void SetFilter(CellType filter)

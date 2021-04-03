@@ -1,7 +1,9 @@
 ﻿using System;
+using Data;
 using Editor.Utils;
 using UnityEditor;
 using UnityEditor.EditorTools;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.XR;
@@ -17,18 +19,10 @@ namespace Editor
             GetWindow(typeof(LevelEditorBrushWindow));
         }
         
-        private enum BrushMode
-        {
-            DrawWalkable,
-            DrawObstacles,
-            Erase
-        
-        }
-        
-        private static readonly (string name, BrushMode mode)[] BrushOptions = {
-            ("Draw walkable", BrushMode.DrawWalkable),
-            ("Draw obstacles", BrushMode.DrawObstacles),
-            ("Erase", BrushMode.Erase)
+        private static readonly (string name, CellType mode)[] BrushOptions = {
+            ("Draw walkable", CellType.Walkable),
+            ("Draw obstacles", CellType.Obstacle),
+            ("Erase", CellType.Empty)
         };
     
         private bool active;
@@ -45,13 +39,14 @@ namespace Editor
 
         private void OnDisable()
         {
-            
         }
+        
 
         private void OnGUI () {
             
             active = EditorGUILayout.Toggle("Brush active", active);
             brushMode = EditorGuiExtension.DrawSwitcher(brushMode, BrushOptions);
+            LevelEditorBrush.Mode = BrushOptions[brushMode].mode;
         }
         
     }

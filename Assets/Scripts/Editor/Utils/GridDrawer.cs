@@ -39,32 +39,24 @@ namespace Editor.Utils
                 Handles.DrawLine(pos1, pos2);
             }
         }
-        
-        public static void DrawArea(Grid grid, int size, Vector3Int point, Color color)
+
+        public static void DrawArea(Grid grid, Vector3Int min, Vector3Int max , Vector3Int point, Color color)
         {
             Handles.matrix = grid.transform.localToWorldMatrix;
-
             Handles.color = color;
 
-            var minX = point.x - size/2;
-            var maxX = point.x + size/2 +1;
-            var minY = point.y - size/2;
-            var maxY = point.y + size/2 +1;
-
-
-            for (var x = minX; x <= maxX; x++)
+            for (var x = min.x; x <= max.x; x++)
             {
-
-                var pos1 = new Vector3(x, minY, 0);
-                var pos2 = new Vector3(x, maxY, 0);
+                var pos1 = new Vector3(x, min.y, 0);
+                var pos2 = new Vector3(x, max.y, 0);
 
                 Handles.DrawLine(pos1, pos2);
             }
 
-            for (var y = minY; y <= maxY; y++)
+            for (var y = min.y; y <= max.y; y++)
             {
-                var pos1 = new Vector3(minX, y, 0);
-                var pos2 = new Vector3(maxX, y, 0);
+                var pos1 = new Vector3(min.x, y, 0);
+                var pos2 = new Vector3(max.x, y, 0);
 
                 Handles.DrawLine(pos1, pos2);
             }
