@@ -23,6 +23,7 @@ namespace Editor.Utils
 
         public override void OnToolGUI(EditorWindow window)
         {
+            if(Target == null) return;
             if (window is SceneView sceneView)
             {
                 var point = GetPositionOnFloor(sceneView);

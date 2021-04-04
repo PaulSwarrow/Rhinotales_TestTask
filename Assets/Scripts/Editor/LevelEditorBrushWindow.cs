@@ -3,6 +3,7 @@ using Editor.Utils;
 using Ui;
 using UnityEditor;
 using UnityEditor.EditorTools;
+using UnityEngine;
 using View;
 
 namespace Editor
@@ -29,9 +30,7 @@ namespace Editor
 
         private void OnEnable()
         {
-            level = FindObjectOfType<GameLevelActor>();
             EditorTools.SetActiveTool<LevelEditorBrush>();
-            LevelEditorBrush.Target = level;
         }
 
         private void OnDisable()
@@ -41,6 +40,14 @@ namespace Editor
 
         private void OnGUI()
         {
+            if (Application.isPlaying)
+            {
+                GUILayout.Label("Not available in runtime");
+                LevelEditorBrush.Target = null;
+                return;
+            }
+            if(!level) level = FindObjectOfType<GameLevelActor>();
+            LevelEditorBrush.Target = level;
             active = EditorGUILayout.Toggle("Brush active", active);
             brushMode = GuiExtension.DrawSwitcher(brushMode, BrushOptions);
             brushSize = EditorGUILayout.IntSlider("Brush size", brushSize, 1, 5);
