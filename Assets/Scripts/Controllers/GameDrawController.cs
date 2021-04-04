@@ -33,9 +33,17 @@ namespace Controllers
             }
         }
 
-        public void DrawPath(Vector3Int[] points)
+        public void DrawPath(IEnumerable<Vector3Int> points)
         {
-            lineRenderer.SetPositions(points.Select(point => level.Grid.GetCellCenterWorld(point)).ToArray());
+            var array = points.Select(point => level.Grid.GetCellCenterWorld(point)).ToArray();
+            lineRenderer.positionCount = array.Length;
+            lineRenderer.SetPositions(array);
+        }
+        
+        public void ClearPath()
+        {
+            lineRenderer.positionCount = 0;
+
         }
 
         private FieldMarkView CreateMark(string text)
@@ -57,5 +65,6 @@ namespace Controllers
             mark.gameObject.SetActive(false);
             pointsPool.Add(mark.Label, mark);
         }
+
     }
 }

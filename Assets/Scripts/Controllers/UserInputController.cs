@@ -18,6 +18,7 @@ namespace Controllers
 
         [Inject] private CellSelectorController selector;
         [Inject] private GameDrawController drawController;
+        [Inject] private NavigationController navigation;
 
         [SerializeField] private UiPointTypeSelector pointTypeSelector;
 
@@ -43,8 +44,14 @@ namespace Controllers
             drawController.DrawPoint(point.cell, point.name);
             if (Options.Count(entry => entry.value.isSet) > 1)
             {
-                drawController.DrawPath(Options.Select(item=>item.value.cell).ToArray() );
+                if(navigation.FindPath(Options[0].value.cell, Options[1].value.cell, out var path))
+                {
+                    drawController.DrawPath(path);
+                    return;
+                }
             }
+
+            drawController.ClearPath();
         }
     }
 }
