@@ -40,7 +40,7 @@ namespace View
             }
         }
 
-        private void Clear()
+        public void Clear()
         {
             foreach (var layer in layers)
             {

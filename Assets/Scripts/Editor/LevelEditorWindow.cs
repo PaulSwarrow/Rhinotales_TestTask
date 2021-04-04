@@ -51,6 +51,11 @@ namespace Editor
                 level.Write(loadedConfig.data);
             }
 
+            if (GUILayout.Button("Clear"))
+            {
+                level.Clear();
+            }
+
             var filter = CellType.Empty;
             if (showObstacleTiles) filter |= CellType.Obstacle;
             if (showWalkableTiles) filter |= CellType.Walkable;
