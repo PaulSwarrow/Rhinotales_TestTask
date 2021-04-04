@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Data;
 using UnityEngine;
 
@@ -16,21 +17,29 @@ namespace Model
                 model.map[cellModel.Position] = cellModel;
             }
 
+            foreach (var cellModel in model.map)
+            {
+                var neighbors = new Queue<CellModel>();
+                CellModel cell;
+                if (model.TryGetCell(cellModel.Key + Vector3Int.left, out cell)) neighbors.Enqueue(cell);
+                if (model.TryGetCell(cellModel.Key + Vector3Int.right, out cell)) neighbors.Enqueue(cell);
+                if (model.TryGetCell(cellModel.Key + Vector3Int.up, out cell)) neighbors.Enqueue(cell);
+                if (model.TryGetCell(cellModel.Key + Vector3Int.down, out cell)) neighbors.Enqueue(cell);
+                model.neigborCache[cellModel.Key] = neighbors;
+
+            }
+
             return model;
         }
         
         private Dictionary<Vector3Int, CellModel> map = new Dictionary<Vector3Int, CellModel>();
+        private Dictionary<Vector3Int, Queue<CellModel>> neigborCache = new Dictionary<Vector3Int, Queue<CellModel>>();
         
         
         public IEnumerable<CellModel> GetNeighbors(Vector3Int point, bool onlyWalkable = true)
         {
-            var list = new List<CellModel>();
-            CellModel cell;
-            if (TryGetCell(point + Vector3Int.left, out cell)) list.Add(cell);
-            if (TryGetCell(point + Vector3Int.right, out cell)) list.Add(cell);
-            if (TryGetCell(point + Vector3Int.up, out cell)) list.Add(cell);
-            if (TryGetCell(point + Vector3Int.down, out cell)) list.Add(cell);
-            return list;
+            if (neigborCache.TryGetValue(point, out var neigbors)) return neigbors;
+            return Enumerable.Empty<CellModel>();
         }
 
         public bool TryGetCell(Vector3Int point, out CellModel cell, CellType filter = CellType.Walkable)
