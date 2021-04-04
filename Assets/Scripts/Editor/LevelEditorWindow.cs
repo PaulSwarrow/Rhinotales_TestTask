@@ -14,7 +14,7 @@ namespace Editor
         [MenuItem("LevelEditor/MainWindow")]
         public static void ShowWindow()
         {
-            GetWindow(typeof(LevelEditorWindow));
+            GetWindow(typeof(LevelEditorWindow), false, "Level editor settings");
         }
 
         private bool showGrid = true;

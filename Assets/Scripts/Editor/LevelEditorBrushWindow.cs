@@ -14,7 +14,7 @@ namespace Editor
         [MenuItem("LevelEditor/BrushWindow")]
         public static void ShowWindow()
         {
-            GetWindow(typeof(LevelEditorBrushWindow));
+            GetWindow(typeof(LevelEditorBrushWindow), false, "Level editor brush settings");
         }
 
         private static readonly (string name, CellType mode)[] BrushOptions =
