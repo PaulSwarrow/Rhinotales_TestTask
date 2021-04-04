@@ -13,6 +13,7 @@ namespace Editor.Utils
         public static GameLevelActor Target;
         public static CellType Mode;
         public static int Size;
+        public static bool Active;
 
         private int controlID;
 
@@ -23,7 +24,7 @@ namespace Editor.Utils
 
         public override void OnToolGUI(EditorWindow window)
         {
-            if (Target == null) return;
+            if (Target == null || !Active) return;
             if (window is SceneView sceneView)
             {
                 var point = GetPositionOnFloor(sceneView);

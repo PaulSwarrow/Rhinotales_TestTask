@@ -15,9 +15,9 @@ namespace Editor
             GetWindow(typeof(LevelEditorWindow));
         }
 
-        private bool showGrid;
-        private bool showWalkableTiles;
-        private bool showObstacleTiles;
+        private bool showGrid = true;
+        private bool showWalkableTiles = true;
+        private bool showObstacleTiles = true;
         private int gridSize = 20;
 
         private GameLevelActor level;

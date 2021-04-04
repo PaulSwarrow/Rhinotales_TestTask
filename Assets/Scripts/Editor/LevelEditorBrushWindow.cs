@@ -1,4 +1,5 @@
-﻿using Data;
+﻿using System;
+using Data;
 using Editor.Utils;
 using Ui;
 using UnityEditor;
@@ -23,19 +24,11 @@ namespace Editor
             ("Erase", CellType.Empty)
         };
 
-        private bool active;
+        private bool active = true;
         private int brushMode;
         private int brushSize;
         private GameLevelActor level;
-
-        private void OnEnable()
-        {
-            EditorTools.SetActiveTool<LevelEditorBrush>();
-        }
-
-        private void OnDisable()
-        {
-        }
+        private Type prevTool;
 
 
         private void OnGUI()
@@ -54,6 +47,19 @@ namespace Editor
             brushSize = EditorGUILayout.IntSlider("Brush size", brushSize, 1, 5);
 
 
+            if (active)
+            {
+                if (prevTool == null) prevTool = EditorTools.activeToolType;
+
+                EditorTools.SetActiveTool<LevelEditorBrush>();
+            }
+            else if (prevTool != null)
+            {
+                EditorTools.SetActiveTool(prevTool);
+                prevTool = null;
+            }
+
+            LevelEditorBrush.Active = active;
             LevelEditorBrush.Mode = BrushOptions[brushMode].mode;
             LevelEditorBrush.Size = brushSize;
         }
