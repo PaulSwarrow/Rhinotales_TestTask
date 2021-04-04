@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7094883924355661175}
   - component: {fileID: 9149876351714275750}
   m_Layer: 0
-  m_Name: FieldMark 1
+  m_Name: FieldMark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -178,8 +178,8 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: -1531200677
+  m_SortingOrder: 2
   m_TargetDisplay: 0
 --- !u!114 &7421498803533862999
 MonoBehaviour:

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Data;
 using DI;
 using Ui;
@@ -8,9 +9,10 @@ namespace Controllers
 {
     public class UserInputController : BaseGameController
     {
-        private static readonly (string name, NavigationPoint value)[] Options = {
-            ("Set A", new NavigationPoint{name = "A"}),
-            ("Set B", new NavigationPoint{name = "B"}),
+        private static readonly (string name, NavigationPoint value)[] Options =
+        {
+            ("Set A", new NavigationPoint {name = "A"}),
+            ("Set B", new NavigationPoint {name = "B"}),
         };
 
 
@@ -18,7 +20,7 @@ namespace Controllers
         [Inject] private GameDrawController drawController;
 
         [SerializeField] private UiPointTypeSelector pointTypeSelector;
-        
+
         public override void Subscribe()
         {
             base.Subscribe();
@@ -39,6 +41,10 @@ namespace Controllers
             point.cell = cell;
             point.isSet = true;
             drawController.DrawPoint(point.cell, point.name);
+            if (Options.Count(entry => entry.value.isSet) > 1)
+            {
+                drawController.DrawPath(Options.Select(item=>item.value.cell).ToArray() );
+            }
         }
     }
 }

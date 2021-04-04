@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using DI;
 using UnityEngine;
 using View;
@@ -8,12 +9,13 @@ namespace Controllers
     public class GameDrawController : BaseGameController
     {
         [SerializeField] private FieldMarkView pointMarkPrefab;
-
+        [SerializeField] private LineRenderer lineRenderer;
         [Inject] private GameLevelActor level;
-        
+
         private Dictionary<string, FieldMarkView> pointsPool = new Dictionary<string, FieldMarkView>();
         private Dictionary<Vector3Int, FieldMarkView> marks = new Dictionary<Vector3Int, FieldMarkView>();
-        
+
+
         public void DrawPoint(Vector3Int position, string text)
         {
             RemovePoint(position);
@@ -33,6 +35,7 @@ namespace Controllers
 
         public void DrawPath(Vector3Int[] points)
         {
+            lineRenderer.SetPositions(points.Select(point => level.Grid.GetCellCenterWorld(point)).ToArray());
         }
 
         private FieldMarkView CreateMark(string text)
