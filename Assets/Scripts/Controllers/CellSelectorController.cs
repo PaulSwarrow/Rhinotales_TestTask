@@ -19,7 +19,6 @@ namespace Controllers
             clickableArea.ClickEvent += OnClick;
         }
 
-
         public override void Unsubscribe()
         {
             clickableArea.ClickEvent -= OnClick;

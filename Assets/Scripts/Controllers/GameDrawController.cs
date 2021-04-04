@@ -16,7 +16,6 @@ namespace Controllers
         private Queue<FieldMarkView> markPool = new Queue<FieldMarkView>();
         private Dictionary<MarkType, FieldMarkView> marks = new Dictionary<MarkType, FieldMarkView>();
 
-
         public void DrawPoint(Vector3Int position, MarkType label)
         {
             var mark = GetMark(label);

@@ -9,8 +9,7 @@ namespace Controllers
     public class NavigationController : BaseGameController
     {
         [Inject] private GameLevelModel model;
-
-
+        
         private PathfindingFrontier frontier = new PathfindingFrontier();
 
         public bool FindPath(Vector3Int a, Vector3Int b, out IEnumerable<Vector3Int> path)
@@ -69,8 +68,7 @@ namespace Controllers
             path = default;
             return false;
         }
-
-
+        
         private int HeuristicDistance(CellModel point, CellModel goal)
         {
             return (int) Vector3Int.Distance(point.Position, goal.Position);
