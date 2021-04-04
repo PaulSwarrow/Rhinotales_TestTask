@@ -1,7 +1,7 @@
-﻿using UnityEngine;
+﻿using DI;
+using UnityEngine;
 
-public class BaseGameController : MonoBehaviour
+public abstract class BaseGameController : MonoBehaviour
 {
-        
-        
+    [Inject] protected GameManager manager { get;}
 }

@@ -3,6 +3,7 @@ using DI;
 using Model;
 using UnityEngine;
 using View;
+using Object = UnityEngine.Object;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,8 +11,6 @@ public class GameManager : MonoBehaviour
     private GameLevelModel model;
     private GameLevelActor view;
 
-    public event Action InitEvent;
-    public event Action DisposeEvent;
 
     private void Awake()
     {
@@ -20,9 +19,9 @@ public class GameManager : MonoBehaviour
         model = GameLevelModel.Create(view.Read());
         dependencies.Register(model);
         dependencies.Register(view);
-        dependencies.Register(GetComponents<BaseGameController>());
+        dependencies.Register(Camera.main);
+        dependencies.RegisterMultiple(GetComponents<BaseGameController>());
         dependencies.InjectDependencies();
-            
-            
+        
     }
 }

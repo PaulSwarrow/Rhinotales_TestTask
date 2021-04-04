@@ -12,9 +12,9 @@ namespace View
 
         [SerializeField] private GameLevelLayer[] layers;
 
-        private Grid grid;
+        [SerializeField] private Grid grid;
 
-        public Grid Grid => grid ? grid : grid = GetComponent<Grid>();
+        public Grid Grid => grid ;
 
         public List<CellModel> Read()
         {

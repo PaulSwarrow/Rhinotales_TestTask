@@ -1,5 +1,6 @@
 ﻿using Data;
 using Editor.Utils;
+using Ui;
 using UnityEditor;
 using UnityEditor.EditorTools;
 using View;
@@ -41,7 +42,7 @@ namespace Editor
         private void OnGUI()
         {
             active = EditorGUILayout.Toggle("Brush active", active);
-            brushMode = EditorGuiExtension.DrawSwitcher(brushMode, BrushOptions);
+            brushMode = GuiExtension.DrawSwitcher(brushMode, BrushOptions);
             brushSize = EditorGUILayout.IntSlider("Brush size", brushSize, 1, 5);
 
 

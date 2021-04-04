@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-namespace Editor.Utils
+namespace Ui
 {
-    public static class EditorGuiExtension
+    public static class GuiExtension
     {
         public static int DrawSwitcher<T>(int value, params (string name, T value)[] options)
         {

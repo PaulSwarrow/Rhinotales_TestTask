@@ -15,7 +15,7 @@ namespace DI
             map.Add(type, item);
         }
 
-        public void Register(IEnumerable<object> items)
+        public void RegisterMultiple(IEnumerable<object> items)
         {
             foreach (var item in items)
             {
