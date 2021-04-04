@@ -1,36 +1,44 @@
 ﻿using System;
+using Data;
+using DI;
 using Ui;
+using UnityEngine;
 
 namespace Controllers
 {
     public class UserInputController : BaseGameController
     {
-        private enum PointType
-        {
-            A = 1,
-            B = 2
-        }
-
-        private static readonly (string name, PointType value)[] options = new (string name, PointType value)[]
-        {
-            ("Set A", PointType.A),
-            ("Set B", PointType.B),
+        private static readonly (string name, NavigationPoint value)[] Options = {
+            ("Set A", new NavigationPoint{name = "A"}),
+            ("Set B", new NavigationPoint{name = "B"}),
         };
 
-        private PointType currentPointType;
 
-        private void OnEnable()
+        [Inject] private CellSelectorController selector;
+        [Inject] private GameDrawController drawController;
+
+        [SerializeField] private UiPointTypeSelector pointTypeSelector;
+        
+        public override void Subscribe()
         {
+            base.Subscribe();
+            pointTypeSelector.DrawOptions(Options);
+            selector.CellClickEvent += OnCellSelect;
         }
 
-        private void OnDisable()
+        public override void Unsubscribe()
         {
+            base.Unsubscribe();
+            selector.CellClickEvent -= OnCellSelect;
         }
 
-        private void OnGUI()
+        private void OnCellSelect(Vector3Int cell)
         {
-            currentPointType = (PointType) GuiExtension.DrawSwitcher((int) currentPointType, options);
-            
+            var point = Options[pointTypeSelector.CurrentSelection].value;
+            if (point.isSet) drawController.RemovePoint(point.cell);
+            point.cell = cell;
+            point.isSet = true;
+            drawController.DrawPoint(point.cell, point.name);
         }
     }
 }

@@ -10,18 +10,25 @@ public class GameManager : MonoBehaviour
     private DependencyContainer dependencies;
     private GameLevelModel model;
     private GameLevelActor view;
+    private BaseGameController[] controllers;
 
 
     private void Awake()
     {
+        controllers = GetComponents<BaseGameController>();
         dependencies = new DependencyContainer();
         view = FindObjectOfType<GameLevelActor>();
         model = GameLevelModel.Create(view.Read());
         dependencies.Register(model);
         dependencies.Register(view);
         dependencies.Register(Camera.main);
-        dependencies.RegisterMultiple(GetComponents<BaseGameController>());
+        dependencies.RegisterMultiple(controllers);
         dependencies.InjectDependencies();
+        
+        foreach (var controller in controllers)
+        {
+            controller.Subscribe();
+        }
         
     }
 }
