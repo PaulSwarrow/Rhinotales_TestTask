@@ -9,14 +9,9 @@ namespace View
     [ExecuteAlways]
     public class GameLevelLayer : MonoBehaviour
     {
-        private Tilemap map;
+        [SerializeField] private Tilemap map;
         [SerializeField] private Tile prefab;
         public CellType Type;
-
-        private void Awake()
-        {
-            map = GetComponent<Tilemap>();
-        }
 
         public void SetValue(Vector3Int position, bool value)
         {
