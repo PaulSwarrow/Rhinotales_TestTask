@@ -37,6 +37,8 @@ namespace Editor
 
         void OnGUI()
         {
+            if(!level) level = FindObjectOfType<GameLevelActor>();
+            
             showGrid = EditorGUILayout.Toggle("Show grid", showGrid);
             gridSize = EditorGUILayout.IntSlider("Grid size", gridSize, 10, 100);
             showWalkableTiles = EditorGUILayout.Toggle("Show walkable tiles", showWalkableTiles);
