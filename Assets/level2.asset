@@ -343,8 +343,6 @@ MonoBehaviour:
     Type: 4
   - Position: {x: -5, y: -9, z: 0}
     Type: 4
-  - Position: {x: -4, y: -9, z: 0}
-    Type: 4
   - Position: {x: -3, y: -9, z: 0}
     Type: 4
   - Position: {x: -2, y: -9, z: 0}
@@ -1095,16 +1093,6 @@ MonoBehaviour:
     Type: 4
   - Position: {x: 0, y: 3, z: 0}
     Type: 4
-  - Position: {x: 3, y: 3, z: 0}
-    Type: 4
-  - Position: {x: 4, y: 3, z: 0}
-    Type: 4
-  - Position: {x: 5, y: 3, z: 0}
-    Type: 4
-  - Position: {x: 6, y: 3, z: 0}
-    Type: 4
-  - Position: {x: 7, y: 3, z: 0}
-    Type: 4
   - Position: {x: 9, y: 3, z: 0}
     Type: 4
   - Position: {x: 10, y: 3, z: 0}
@@ -1698,6 +1686,16 @@ MonoBehaviour:
   - Position: {x: 1, y: 3, z: 0}
     Type: 2
   - Position: {x: 2, y: 3, z: 0}
+    Type: 2
+  - Position: {x: 3, y: 3, z: 0}
+    Type: 2
+  - Position: {x: 4, y: 3, z: 0}
+    Type: 2
+  - Position: {x: 5, y: 3, z: 0}
+    Type: 2
+  - Position: {x: 6, y: 3, z: 0}
+    Type: 2
+  - Position: {x: 7, y: 3, z: 0}
     Type: 2
   - Position: {x: 8, y: 3, z: 0}
     Type: 2

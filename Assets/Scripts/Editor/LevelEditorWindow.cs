@@ -2,7 +2,9 @@
 using Data;
 using Editor.Utils;
 using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using View;
 
 namespace Editor
@@ -49,11 +51,13 @@ namespace Editor
             if (GUILayout.Button("Load") && AssetDatabaseApi.LoadAsset<GameLevelConfig>(out var loadedConfig))
             {
                 level.Write(loadedConfig.data);
+                EditorSceneManager.MarkSceneDirty(SceneManager.GetActiveScene());
             }
 
             if (GUILayout.Button("Clear"))
             {
                 level.Clear();
+                EditorSceneManager.MarkSceneDirty(SceneManager.GetActiveScene());
             }
 
             var filter = CellType.Empty;

@@ -1,7 +1,9 @@
 ﻿using Data;
 using UnityEditor;
 using UnityEditor.EditorTools;
+using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using View;
 
 namespace Editor.Utils
@@ -35,6 +37,7 @@ namespace Editor.Utils
                 var currentEvent = Event.current;
                 if (currentEvent.type == EventType.MouseDown)
                 {
+                    EditorSceneManager.MarkSceneDirty(SceneManager.GetActiveScene());
                     GUIUtility.hotControl = controlID;
                     Target.SetArea(min, max, Mode);
                 }
