@@ -31,8 +31,8 @@ namespace Editor.Utils
             {
                 var point = GetPositionOnFloor(sceneView);
                 var cell = Target.Grid.WorldToCell(point);
-                var min = new Vector3Int(cell.x - Size / 2, cell.y - Size / 2, 0);
-                var max = new Vector3Int(cell.x + Size / 2 + 1, cell.y + Size / 2 + 1, 0);
+                var min = new Vector3Int(cell.x - Mathf.FloorToInt(Size / 2f), cell.y - Mathf.FloorToInt(Size / 2f), 0);
+                var max = new Vector3Int(cell.x + Mathf.CeilToInt(Size / 2f), cell.y + Mathf.CeilToInt(Size / 2f), 0);
                 GridDrawer.DrawArea(Target.Grid, min, max, cell, Color.white);
                 var currentEvent = Event.current;
                 if (currentEvent.type == EventType.MouseDown)
