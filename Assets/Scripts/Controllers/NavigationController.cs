@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Controllers.Navigation;
 using DI;
 using Model;
@@ -61,7 +60,7 @@ namespace Controllers
                     {
                         reachCost[neighbor] = currentCost;
                         cameFrom[neighbor] = current;
-                        var priority = currentCost + Heuristic(neighbor, b);
+                        var priority = currentCost + HeuristicDistance(neighbor, b);
                         frontier.Set(neighbor, priority);
                     }
                 }
@@ -72,7 +71,7 @@ namespace Controllers
         }
 
 
-        private int Heuristic(CellModel point, CellModel goal)
+        private int HeuristicDistance(CellModel point, CellModel goal)
         {
             return (int) Vector3Int.Distance(point.Position, goal.Position);
         }

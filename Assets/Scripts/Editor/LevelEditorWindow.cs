@@ -36,6 +36,7 @@ namespace Editor
         void OnGUI()
         {
             showGrid = EditorGUILayout.Toggle("Show grid", showGrid);
+            gridSize = EditorGUILayout.IntSlider("Grid size", gridSize, 10, 100);
             showWalkableTiles = EditorGUILayout.Toggle("Show walkable tiles", showWalkableTiles);
             showObstacleTiles = EditorGUILayout.Toggle("Show obstacle tiles", showObstacleTiles);
             if (GUILayout.Button("Save"))

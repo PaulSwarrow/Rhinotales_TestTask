@@ -46,7 +46,8 @@ namespace Editor
                 LevelEditorBrush.Target = null;
                 return;
             }
-            if(!level) level = FindObjectOfType<GameLevelActor>();
+
+            if (!level) level = FindObjectOfType<GameLevelActor>();
             LevelEditorBrush.Target = level;
             active = EditorGUILayout.Toggle("Brush active", active);
             brushMode = GuiExtension.DrawSwitcher(brushMode, BrushOptions);

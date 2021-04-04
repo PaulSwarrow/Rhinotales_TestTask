@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace DefaultNamespace
+namespace Tools
 {
     public class LocalFactory<T> where T : MonoBehaviour
     {
