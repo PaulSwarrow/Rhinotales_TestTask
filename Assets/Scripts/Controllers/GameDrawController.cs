@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Data;
 using DI;
 using UnityEngine;
 using View;
@@ -12,24 +13,23 @@ namespace Controllers
         [SerializeField] private LineRenderer lineRenderer;
         [Inject] private GameLevelActor level;
 
-        private Dictionary<string, FieldMarkView> pointsPool = new Dictionary<string, FieldMarkView>();
-        private Dictionary<Vector3Int, FieldMarkView> marks = new Dictionary<Vector3Int, FieldMarkView>();
+        private Queue<FieldMarkView> markPool = new Queue<FieldMarkView>();
+        private Dictionary<MarkType, FieldMarkView> marks = new Dictionary<MarkType, FieldMarkView>();
 
 
-        public void DrawPoint(Vector3Int position, string text)
+        public void DrawPoint(Vector3Int position, MarkType label)
         {
-            RemovePoint(position);
-            var mark = CreateMark(text);
+            var mark = GetMark(label);
             mark.transform.position = level.Grid.GetCellCenterWorld(position);
-            marks[position] = mark;
         }
 
-        public void RemovePoint(Vector3Int position)
+        public void RemovePoint(MarkType label)
         {
-            if (marks.TryGetValue(position, out var mark))
+            if (marks.TryGetValue(label, out var mark))
             {
-                marks.Remove(position);
-                RemoveMark(mark);
+                marks.Remove(label);
+                mark.gameObject.SetActive(false);
+                markPool.Enqueue(mark);
             }
         }
 
@@ -39,32 +39,32 @@ namespace Controllers
             lineRenderer.positionCount = array.Length;
             lineRenderer.SetPositions(array);
         }
-        
+
         public void ClearPath()
         {
             lineRenderer.positionCount = 0;
-
         }
 
-        private FieldMarkView CreateMark(string text)
+        private FieldMarkView GetMark(MarkType label)
         {
-            if (pointsPool.TryGetValue(text, out var mark))
+            if (marks.TryGetValue(label, out var mark))
             {
-                mark.gameObject.SetActive(true);
-                pointsPool.Remove(text);
                 return mark;
             }
 
-            mark = Instantiate(pointMarkPrefab);
-            mark.Label = text;
+            if (markPool.Count > 0)
+            {
+                mark = markPool.Dequeue();
+                mark.gameObject.SetActive(true);
+            }
+            else
+            {
+                mark = Instantiate(pointMarkPrefab);
+            }
+
+            mark.Label = label.ToString();
+            marks[label] = mark;
             return mark;
         }
-
-        private void RemoveMark(FieldMarkView mark)
-        {
-            mark.gameObject.SetActive(false);
-            pointsPool.Add(mark.Label, mark);
-        }
-
     }
 }

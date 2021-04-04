@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Data;
 using DI;
@@ -9,23 +9,18 @@ namespace Controllers
 {
     public class UserInputController : BaseGameController
     {
-        private static readonly (string name, NavigationPoint value)[] Options =
-        {
-            ("Set A", new NavigationPoint {name = "A"}),
-            ("Set B", new NavigationPoint {name = "B"}),
-        };
-
-
         [Inject] private CellSelectorController selector;
         [Inject] private GameDrawController drawController;
         [Inject] private NavigationController navigation;
 
         [SerializeField] private UiPointTypeSelector pointTypeSelector;
 
+        private List<NavigationPoint> points = new List<NavigationPoint>();
+
         public override void Subscribe()
         {
             base.Subscribe();
-            pointTypeSelector.DrawOptions(Options);
+            pointTypeSelector.DrawOptions("Set A", "Set B");
             selector.CellClickEvent += OnCellSelect;
         }
 
@@ -37,14 +32,37 @@ namespace Controllers
 
         private void OnCellSelect(Vector3Int cell)
         {
-            var point = Options[pointTypeSelector.CurrentSelection].value;
-            if (point.isSet) drawController.RemovePoint(point.cell);
-            point.cell = cell;
-            point.isSet = true;
-            drawController.DrawPoint(point.cell, point.name);
-            if (Options.Count(entry => entry.value.isSet) > 1)
+            var mark = (MarkType) pointTypeSelector.CurrentSelection;
+            var isNew = true;
+            for (var i = points.Count - 1; i >= 0; i--)
             {
-                if(navigation.FindPath(Options[0].value.cell, Options[1].value.cell, out var path))
+                var point = points[i];
+                if (point.mark == mark)
+                {
+                    point.cell = cell;
+                    drawController.DrawPoint(cell, mark);
+                    isNew = false;
+                }
+                else if (point.cell == cell)
+                {
+                    points.RemoveAt(i);
+                    drawController.RemovePoint(point.mark);
+                }
+            }
+
+            if (isNew)
+            {
+                points.Add(new NavigationPoint
+                {
+                    mark = mark,
+                    cell = cell
+                });
+                drawController.DrawPoint(cell, mark);
+            }
+
+            if (points.Count > 1)
+            {
+                if (navigation.FindPath(points.First().cell, points.Last().cell, out var path))
                 {
                     drawController.DrawPath(path);
                     return;

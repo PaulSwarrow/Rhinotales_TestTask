@@ -20,13 +20,13 @@ namespace Ui
             btnFactory = new LocalFactory<GameButton>(transform);
         }
         
-        public void DrawOptions(params (string name, NavigationPoint value)[] options)
+        public void DrawOptions(params string[] options)
         {
             for (var i = 0; i < options.Length; i++)
             {
                 var entry = options[i];
                 var btn = btnFactory.Create();
-                btn.GetComponentInChildren<Text>().text = entry.name;
+                btn.GetComponentInChildren<Text>().text = entry;
                 btn.ClickEvent += OnSelect;
                 btns.Add(btn);
             }

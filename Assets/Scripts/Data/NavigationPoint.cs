@@ -2,11 +2,9 @@
 
 namespace Data
 {
-    
     public class NavigationPoint
     {
-        public string name;
+        public MarkType mark;
         public Vector3Int cell;
-        public bool isSet;
     }
 }
