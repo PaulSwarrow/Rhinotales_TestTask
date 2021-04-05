@@ -8,7 +8,7 @@ namespace Controllers
     public class CellSelectorController : BaseGameController
     {
         [Inject] private Camera camera;
-        [Inject] private GameLevelActor level;
+        [Inject] private GameLevelView level;
         [SerializeField] private ClickArea clickableArea;
 
         public event Action<Vector3Int> CellClickEvent;

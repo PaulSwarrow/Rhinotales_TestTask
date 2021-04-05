@@ -12,7 +12,7 @@ namespace Editor.Utils
     [EditorTool("Level Editor Brush")]
     internal class LevelEditorBrush : EditorTool
     {
-        public static GameLevelActor Target;
+        public static GameLevelView Target;
         public static CellType Mode;
         public static int Size;
         public static bool Active;

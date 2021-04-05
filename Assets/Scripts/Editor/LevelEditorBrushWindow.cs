@@ -27,7 +27,7 @@ namespace Editor
         private bool active = true;
         private int brushMode;
         private int brushSize;
-        private GameLevelActor level;
+        private GameLevelView level;
         private Type prevTool;
 
 
@@ -40,7 +40,7 @@ namespace Editor
                 return;
             }
 
-            if (!level) level = FindObjectOfType<GameLevelActor>();
+            if (!level) level = FindObjectOfType<GameLevelView>();
             LevelEditorBrush.Target = level;
             active = EditorGUILayout.Toggle("Brush active", active);
             brushMode = GuiExtension.DrawSwitcher(brushMode, BrushOptions);

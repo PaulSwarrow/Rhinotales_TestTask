@@ -22,11 +22,11 @@ namespace Editor
         private bool showObstacleTiles = true;
         private int gridSize = 20;
 
-        private GameLevelActor level;
+        private GameLevelView level;
 
         private void OnEnable()
         {
-            level = FindObjectOfType<GameLevelActor>();
+            level = FindObjectOfType<GameLevelView>();
             SceneView.onSceneGUIDelegate += OnSceneGUI;
         }
 
@@ -37,7 +37,7 @@ namespace Editor
 
         void OnGUI()
         {
-            if(!level) level = FindObjectOfType<GameLevelActor>();
+            if(!level) level = FindObjectOfType<GameLevelView>();
             
             showGrid = EditorGUILayout.Toggle("Show grid", showGrid);
             gridSize = EditorGUILayout.IntSlider("Grid size", gridSize, 10, 100);

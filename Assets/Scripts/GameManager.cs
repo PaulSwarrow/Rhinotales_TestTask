@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
 {
     private DependencyContainer dependencies;
     private GameLevelModel model;
-    private GameLevelActor view;
+    private GameLevelView view;
     private BaseGameController[] controllers;
 
 
@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     {
         controllers = GetComponents<BaseGameController>();
         dependencies = new DependencyContainer();
-        view = FindObjectOfType<GameLevelActor>();
+        view = FindObjectOfType<GameLevelView>();
         model = GameLevelModel.Create(view.Read());
         dependencies.Register(model);
         dependencies.Register(view);

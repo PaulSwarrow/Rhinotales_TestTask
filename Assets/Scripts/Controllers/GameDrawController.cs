@@ -11,7 +11,7 @@ namespace Controllers
     {
         [SerializeField] private FieldMarkView pointMarkPrefab;
         [SerializeField] private LineRenderer lineRenderer;
-        [Inject] private GameLevelActor level;
+        [Inject] private GameLevelView level;
 
         private Queue<FieldMarkView> markPool = new Queue<FieldMarkView>();
         private Dictionary<MarkType, FieldMarkView> marks = new Dictionary<MarkType, FieldMarkView>();

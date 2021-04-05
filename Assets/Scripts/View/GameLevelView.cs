@@ -6,7 +6,7 @@ using UnityEngine;
 namespace View
 {
     [RequireComponent(typeof(Grid))]
-    public class GameLevelActor : MonoBehaviour
+    public class GameLevelView : MonoBehaviour
     {
         [SerializeField] private CellType filter = CellType.Everything;
 
